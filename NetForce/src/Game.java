@@ -10,6 +10,8 @@
  */
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Deque;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Game {
@@ -18,27 +20,37 @@ public class Game {
     Game: date, team score, opponent score, ????, players
     */
     private String opponentName;
-    private Date now;
+    private String date;
     private int teamScore;
     private int opponentScore;
     private List<String> roster; //contains names of players that played in this game
+    private Deque<Command> history; //contains history of executed commands for undo function.
     
-    //constructor
+    //constructor for new game
     Game(String n){
         this.opponentName = n;
-        this.now = new Date();
+        this.date = new Date().toString();
         this.teamScore = 0;
         this.opponentScore = 0;
         this.roster = new ArrayList<>();
+        this.history = new LinkedList<>();
     }
     
+    //constructor for loaded game
+    Game(String on, String d, int ts, int os, List<String> r){
+        this.opponentName = on;
+        this.date = d;
+        this.teamScore = ts;
+        this.opponentScore = os;
+        this.roster = r;
+    }
     
     //accessors
     public String getOpponentName(){
         return opponentName;
     }
-    public Date getDate(){
-        return now;
+    public String getDate(){
+        return date;
     }
     public int getTeamScore(){
         return teamScore;
@@ -60,10 +72,23 @@ public class Game {
     public void setOpponentScore(int n){
         this.opponentScore = n;
     }
+    public void setDate(String s){
+        this.date = s;
+    }
     public void addToRoster(Player p){
         roster.add(p.getName());
     }
     public void removeFromRoster(Player p){
         roster.remove(p.getName());
+    }
+    
+    //push and execute command
+    public void executeCommand(Command cmd){
+        history.push(cmd);
+        cmd.execute();
+    }
+    //pop and undo command
+    public void undoCommand(){
+        history.pop().undo();
     }
 }

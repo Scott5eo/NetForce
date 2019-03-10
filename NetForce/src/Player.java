@@ -14,7 +14,7 @@ public class Player {
     Attack: Kill, Attack error, Zero attack
     Setting: Assist, Assist error, Zero assist
     Serving: Ace, Service error, Zero serve 
-    Defense: Successful dig, Defense error, Block, Block error
+    Defense: Successful dig, Defense error, Block, Block error, zero Block
     */
   private int kill;
   private int attackError;
@@ -29,6 +29,7 @@ public class Player {
   private int defenseError;
   private int block;
   private int blockError;
+  private int zeroBlock;
   private String name;
   private int number;
   private int grade;
@@ -53,9 +54,10 @@ public class Player {
       this.defenseError = 0;
       this.block = 0;
       this.blockError = 0;
+      this.zeroBlock =0;
   }
   
-  Player(String name, int number, int grade, String email, int kill, int attackE, int zeroAttack, int assist, int assistE, int zeroAssist, int ace, int serviceE, int zeroS, int successfulDig, int defenseE, int block, int blockE){
+  Player(String name, int number, int grade, String email, int kill, int attackE, int zeroAttack, int assist, int assistE, int zeroAssist, int ace, int serviceE, int zeroS, int successfulDig, int defenseE, int block, int blockE, int zeroB){
       //used when loading player from saved file
       this.name = name;
       this.number = number;
@@ -74,6 +76,7 @@ public class Player {
       this.defenseError = defenseE;
       this.block = block;
       this.blockError = blockE;
+      this.zeroBlock = zeroB;
   }
   
   //accessors
@@ -86,7 +89,7 @@ public class Player {
   public int getGrade(){
       return this.grade;
   }
-  public String getEamil(){
+  public String getEmail(){
       return this.email;
   }
   public int getKill(){
@@ -127,6 +130,9 @@ public class Player {
   }
   public int getBlockError(){
       return this.blockError;
+  }
+  public int getZeroBlock(){
+      return this.zeroBlock;
   }
   
   //mutators
@@ -181,6 +187,9 @@ public class Player {
   public void setBlockError(int e){
       this.blockError = e;
   }
+  public void setZeroBlock(int z){
+      this.zeroBlock = z;
+  }
   
   /*Statistics Calculation
   Attack: Total attacks = kill + attack error + zero attack, hitting percentage = (kills - errors)/totalAttack
@@ -213,11 +222,11 @@ public class Player {
       return percentage;
   }
   public int getTotalDefense(){
-      int total = successfulDig + defenseError + block + blockError;
+      int total = successfulDig + defenseError + block + blockError + zeroBlock;
       return total;
   }
   public double getDefensePercentage(){
-      double percentage = (successfulDig + block - defenseError - blockError);
+      double percentage = (successfulDig + block - defenseError - blockError)/getTotalDefense();
       return percentage;
   }
   public int getPoints(){
