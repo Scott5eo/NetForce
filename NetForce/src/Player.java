@@ -145,7 +145,7 @@ public class Player {
   public void setGrade(int n){
       this.grade = n;
   }
-  public void setEamil(String e){
+  public void setEmail(String e){
       this.email = e;
   }
   public void setKill(int k){

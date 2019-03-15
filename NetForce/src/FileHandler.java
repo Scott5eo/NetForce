@@ -105,12 +105,21 @@ public class FileHandler {
                 ps.add(JSONToPlayer(iterator.next()));
             }
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            try (FileWriter file = new FileWriter(playersFileAddress,false)) {
+
+            file.write("");
+            file.flush();
+            return loadPlayers();
+
+            } catch (IOException xD) {
+            xD.printStackTrace();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ParseException e) {
             e.printStackTrace();
-        }
+        } 
+        
         return ps;
     }
     
@@ -174,11 +183,19 @@ public class FileHandler {
                 gs.add(JSONToGame(iterator.next()));
             }
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            try (FileWriter file = new FileWriter(gamesFileAddress,false)){
+            file.write("");
+            file.flush();
+            }
+            catch(IOException xD){
+                xD.printStackTrace();
+            }
+            return loadGames();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ParseException e) {
             e.printStackTrace();
+            System.out.println("oops");
         }
         return gs;
     }

@@ -61,6 +61,9 @@ public class Game {
     public List<String> getRoster(){
         return roster;
     }
+    public Deque<Command> getHistory(){
+        return history;
+    }
     
     //mutators
     public void setOpponentName(String name){
