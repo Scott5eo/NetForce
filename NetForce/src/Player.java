@@ -79,6 +79,28 @@ public class Player {
       this.zeroBlock = zeroB;
   }
   
+  Player(Player p){
+      //used when cloning to support undo function
+      this.name = p.getName();
+      this.number = p.getNumber();
+      this.grade = p.getGrade();
+      this.email = p.getEmail();
+      this.kill = p.getKill();
+      this.attackError = p.getAttackError();
+      this.zeroAttack = p.zeroAttack;
+      this.assist = p.getAssist();
+      this.assistError = p.getAssistError();
+      this.zeroAssist = p.getZeroAssist();
+      this.ace = p.getAce();
+      this.serviceError = p.getServiceError();
+      this.zeroServe = p.getZeroServe();
+      this.successfulDig = p.getSuccessfulDig();
+      this.defenseError = p.getDefenseError();
+      this.block = p.getBlock();
+      this.blockError = p.getBlockError();
+      this.zeroBlock = p.getZeroBlock();
+  }
+  
   //accessors
   public String getName(){
       return this.name;
@@ -202,7 +224,13 @@ public class Player {
       return total;
   }
   public double getHittingPercentage(){
-      double percentage = (kill - attackError)/getTotalAttacks();
+      double percentage;
+      try{
+      percentage = (kill - attackError)/getTotalAttacks();    
+      }
+      catch(ArithmeticException ae){ // happens when division by 0
+          return 0;
+      }
       return percentage;
   }
   public int getTotalSettings(){
@@ -210,7 +238,13 @@ public class Player {
       return total;
   }
   public double getSettingPercentage(){
-      double percentage = (assist - assistError)/getTotalSettings();
+      double percentage;
+      try{
+      percentage = (assist - assistError)/getTotalSettings();
+      }
+      catch(ArithmeticException ae){
+          return 0;
+      }
       return percentage;
   }
   public int getTotalServings(){
@@ -218,7 +252,13 @@ public class Player {
       return total;
   }
   public double getServicePercentage(){
-      double percentage = (ace - serviceError)/getTotalServings();
+      double percentage;
+      try{
+      percentage = (ace - serviceError)/getTotalServings();
+      }
+      catch(ArithmeticException ae){
+          return 0;
+      }
       return percentage;
   }
   public int getTotalDefense(){
@@ -226,7 +266,13 @@ public class Player {
       return total;
   }
   public double getDefensePercentage(){
-      double percentage = (successfulDig + block - defenseError - blockError)/getTotalDefense();
+      double percentage;
+      try{
+      percentage = (successfulDig + block - defenseError - blockError)/getTotalDefense();
+      }
+      catch(ArithmeticException ae){
+          return 0;
+      }
       return percentage;
   }
   public int getPoints(){

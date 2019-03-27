@@ -45,6 +45,15 @@ public class Game {
         this.roster = r;
     }
     
+    //constrcutor to enable undo possible.
+    Game(Game g){
+        this.opponentName = g.getOpponentName();
+        this.date = g.getDate();
+        this.teamScore = g.getTeamScore();
+        this.opponentScore = g.getOpponentScore();
+        this.roster = g.getRoster();
+        this.history = g.getHistory();
+    }
     //accessors
     public String getOpponentName(){
         return opponentName;
@@ -64,6 +73,7 @@ public class Game {
     public Deque<Command> getHistory(){
         return history;
     }
+
     
     //mutators
     public void setOpponentName(String name){
@@ -84,6 +94,7 @@ public class Game {
     public void removeFromRoster(Player p){
         roster.remove(p.getName());
     }
+
     
     //push and execute command
     public void executeCommand(Command cmd){

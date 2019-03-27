@@ -105,6 +105,7 @@ public class FileHandler {
                 ps.add(JSONToPlayer(iterator.next()));
             }
         } catch (FileNotFoundException e) {
+            //there is no players.json file. Let's create an empty one.
             try (FileWriter file = new FileWriter(playersFileAddress,false)) {
 
             file.write("");
@@ -142,8 +143,8 @@ public class FileHandler {
     public Game JSONToGame(JSONObject j){
         String opponentName = (String) j.get("opponent name");
         String date =(String)  j.get("date");
-        int teamScore = (int) j.get("team score");
-        int opponentScore = (int) j.get("opponent score");
+        int teamScore = Integer.parseInt(j.get("team score").toString());
+        int opponentScore = Integer.parseInt(j.get("opponent score").toString());
         List<String> roster = new ArrayList<>();
         JSONArray JSONroster = (JSONArray) j.get("roster");
         Iterator<String> iterator = JSONroster.iterator();
@@ -154,7 +155,7 @@ public class FileHandler {
         return game;
     }
     
-    //todo: save games
+   // save games
     public void saveGames(List<Game> gs){
         JSONArray jsonGames = new JSONArray();
         gs.forEach((g) -> {
@@ -169,7 +170,7 @@ public class FileHandler {
             e.printStackTrace();
         }
     }
-    //todo: load games
+    // load games
     public List<Game> loadGames(){
         List<Game> gs = new ArrayList<>();
         JSONParser parser = new JSONParser();
@@ -195,7 +196,7 @@ public class FileHandler {
             e.printStackTrace();
         } catch (ParseException e) {
             e.printStackTrace();
-            System.out.println("oops");
+            System.out.println("oops something went wrong...");
         }
         return gs;
     }

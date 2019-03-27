@@ -11,8 +11,8 @@
 public  class Command {
     private final Momento momento;
     private final String type;
-    protected Player invoker;
-    protected Game reciever;
+    private Player invoker;
+    private Game reciever;
     
     Command(Player p, Game g, String t){
         this.momento = new Momento(p,g);
@@ -84,5 +84,13 @@ public  class Command {
     
     public String actionToString(){
         return(invoker.getName() + " " + type +".");
+    }
+    
+    public Player getInvoker(){
+        return invoker;
+    }
+    
+    public Game getReciever(){
+        return reciever;
     }
 }

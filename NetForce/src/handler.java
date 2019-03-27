@@ -19,6 +19,8 @@ public class handler extends javax.swing.JFrame {
     private String listIndicator = "players"; // players or games
     private int selectedPlayer;
     private int selectedGame;
+    private Game newGame;
+    private Player selectedInGamePlayer;
     
     
     /**
@@ -54,13 +56,13 @@ public class handler extends javax.swing.JFrame {
         statList = new java.awt.List();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        labelTeamScore = new javax.swing.JLabel();
+        labelOpponentScore = new javax.swing.JLabel();
         jButtonTeamAddPoint = new javax.swing.JButton();
         jButtonOpponentAddPoint = new javax.swing.JButton();
         jButtonTeamSubPoint = new javax.swing.JButton();
         jButtonOpponentSubPoint = new javax.swing.JButton();
-        jButtonSubPlayer = new javax.swing.JButton();
+        jButtonSubstituteIn = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabelQuickStats = new javax.swing.JLabel();
@@ -83,8 +85,9 @@ public class handler extends javax.swing.JFrame {
         jButtonUndo = new javax.swing.JButton();
         jButton24 = new javax.swing.JButton();
         jLabelLastAction = new javax.swing.JLabel();
-        list1 = new java.awt.List();
-        list2 = new java.awt.List();
+        listOnBench = new java.awt.List();
+        listOnCourt = new java.awt.List();
+        jButtonSubstituteOff = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -156,7 +159,7 @@ public class handler extends javax.swing.JFrame {
             }
         });
 
-        deleteSelected.setText("Delete Selected Player");
+        deleteSelected.setText("Delete Selected");
         deleteSelected.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteSelectedActionPerformed(evt);
@@ -225,19 +228,44 @@ public class handler extends javax.swing.JFrame {
 
         jLabel1.setText("Score:");
 
-        jLabel2.setText("TEAM:");
+        labelTeamScore.setText("TEAM:");
 
-        jLabel3.setText("OPPONENT:");
+        labelOpponentScore.setText("OPPONENT:");
 
         jButtonTeamAddPoint.setText("+1");
+        jButtonTeamAddPoint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonTeamAddPointActionPerformed(evt);
+            }
+        });
 
         jButtonOpponentAddPoint.setText("+1");
+        jButtonOpponentAddPoint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonOpponentAddPointActionPerformed(evt);
+            }
+        });
 
         jButtonTeamSubPoint.setText("-1");
+        jButtonTeamSubPoint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonTeamSubPointActionPerformed(evt);
+            }
+        });
 
         jButtonOpponentSubPoint.setText("-1");
+        jButtonOpponentSubPoint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonOpponentSubPointActionPerformed(evt);
+            }
+        });
 
-        jButtonSubPlayer.setText("Substitute");
+        jButtonSubstituteIn.setText("Substitute In");
+        jButtonSubstituteIn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSubstituteInActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("On Bench");
 
@@ -246,10 +274,25 @@ public class handler extends javax.swing.JFrame {
         jLabelQuickStats.setText("Quick Stats:");
 
         jButtonAttackError.setText("Attack Error");
+        jButtonAttackError.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAttackErrorActionPerformed(evt);
+            }
+        });
 
         jButtonZeroAttack.setText("Zero Attack");
+        jButtonZeroAttack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonZeroAttackActionPerformed(evt);
+            }
+        });
 
         jButtonKill.setText("Kill");
+        jButtonKill.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonKillActionPerformed(evt);
+            }
+        });
 
         jLabel7.setText("On Attack:");
         jLabel7.setSize(new java.awt.Dimension(100, 50));
@@ -265,8 +308,18 @@ public class handler extends javax.swing.JFrame {
         });
 
         jButtonAssistError.setText("Assist Error");
+        jButtonAssistError.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAssistErrorActionPerformed(evt);
+            }
+        });
 
         jButtonZeroAssist.setText("Zero Assist");
+        jButtonZeroAssist.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonZeroAssistActionPerformed(evt);
+            }
+        });
 
         jLabel9.setText("On Defense");
 
@@ -278,22 +331,76 @@ public class handler extends javax.swing.JFrame {
         });
 
         jButtonDefenseError.setText("Defense Error");
+        jButtonDefenseError.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDefenseErrorActionPerformed(evt);
+            }
+        });
 
         jButtonBlock.setText("Block");
+        jButtonBlock.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBlockActionPerformed(evt);
+            }
+        });
 
         jLabel10.setText("On Block");
 
         jButtonBlockError.setText("Block Error");
+        jButtonBlockError.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBlockErrorActionPerformed(evt);
+            }
+        });
 
         jButtonZeroBlock.setText("Zero Block");
+        jButtonZeroBlock.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonZeroBlockActionPerformed(evt);
+            }
+        });
 
         jButtonNewGame.setText("Enter New Game");
+        jButtonNewGame.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonNewGameActionPerformed(evt);
+            }
+        });
 
         jButtonUndo.setText("Undo");
+        jButtonUndo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonUndoActionPerformed(evt);
+            }
+        });
 
         jButton24.setText("Save and Exit");
+        jButton24.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton24ActionPerformed(evt);
+            }
+        });
 
         jLabelLastAction.setText("Last Action: ");
+
+        listOnBench.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listOnBenchActionPerformed(evt);
+            }
+        });
+
+        listOnCourt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listOnCourtActionPerformed(evt);
+            }
+        });
+
+        jButtonSubstituteOff.setText("Substitute Out");
+        jButtonSubstituteOff.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSubstituteOffActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -310,25 +417,25 @@ public class handler extends javax.swing.JFrame {
                                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(labelTeamScore, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jButtonTeamAddPoint)
                                             .addComponent(jButtonTeamSubPoint))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jButtonOpponentSubPoint)
                                             .addComponent(jButtonOpponentAddPoint)
-                                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addComponent(labelOpponentScore, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGap(138, 138, 138)
+                                        .addGap(123, 123, 123)
                                         .addComponent(jLabel4)
-                                        .addGap(243, 243, 243)
+                                        .addGap(258, 258, 258)
                                         .addComponent(jLabel5)))
                                 .addGap(140, 140, 140)
                                 .addComponent(jLabelQuickStats, javax.swing.GroupLayout.PREFERRED_SIZE, 609, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(list1, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(listOnBench, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(list2, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(listOnCourt, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(47, 47, 47)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -380,8 +487,10 @@ public class handler extends javax.swing.JFrame {
                                                     .addComponent(jButtonZeroBlock))))
                                         .addGap(137, 137, 137))))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(264, 264, 264)
-                        .addComponent(jButtonSubPlayer)))
+                        .addGap(97, 97, 97)
+                        .addComponent(jButtonSubstituteIn)
+                        .addGap(186, 186, 186)
+                        .addComponent(jButtonSubstituteOff)))
                 .addContainerGap(44, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -391,9 +500,9 @@ public class handler extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelTeamScore, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(labelOpponentScore, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButtonTeamAddPoint)
@@ -403,9 +512,9 @@ public class handler extends javax.swing.JFrame {
                             .addComponent(jButtonTeamSubPoint)
                             .addComponent(jButtonOpponentSubPoint))
                         .addGap(24, 24, 24)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel4)))
                     .addComponent(jLabelQuickStats, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -443,10 +552,12 @@ public class handler extends javax.swing.JFrame {
                             .addComponent(jButtonNewGame, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
                             .addComponent(jButtonUndo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton24, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(list1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(list2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(listOnBench, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(listOnCourt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonSubPlayer)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonSubstituteIn)
+                    .addComponent(jButtonSubstituteOff))
                 .addContainerGap(40, Short.MAX_VALUE))
         );
 
@@ -469,6 +580,7 @@ public class handler extends javax.swing.JFrame {
     private void jButtonShowGamesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonShowGamesActionPerformed
         // Deletes everything in the list and list all game in games.
         listIndicator = "games";
+        deleteSelected.setText("Delete Selected Game");
         showAllGames();
         
     }//GEN-LAST:event_jButtonShowGamesActionPerformed
@@ -476,6 +588,7 @@ public class handler extends javax.swing.JFrame {
     private void jButtonShowPlayersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonShowPlayersActionPerformed
         // Deletes everything in the jListShowAll then inserts every player into the list:
         listIndicator = "players";
+        deleteSelected.setText("Delete Selected Player");
         showAllPlayers();
     }//GEN-LAST:event_jButtonShowPlayersActionPerformed
 
@@ -492,6 +605,7 @@ public class handler extends javax.swing.JFrame {
                 setGameStats();
                 showAllGames();
                 showGameStats();
+                break;
         }
     }//GEN-LAST:event_jButtonEditStatsActionPerformed
 
@@ -512,11 +626,19 @@ public class handler extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonAddPlayerActionPerformed
 
     private void jButtonAssistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAssistActionPerformed
-        // TODO add your handling code here:
+        // ASSIST WOOO!!!!
+        Command kill = new Command(players.get(findPlayerIndex(listOnCourt.getSelectedItem())), newGame, "assist");
+        newGame.executeCommand(kill);
+        jLabelLastAction.setText("Last Action: " + kill.actionToString());
+        updateScore();
     }//GEN-LAST:event_jButtonAssistActionPerformed
 
     private void jButtonDigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDigActionPerformed
-        // TODO add your handling code here:
+        // Successful Dig
+        Command kill = new Command(players.get(findPlayerIndex(listOnCourt.getSelectedItem())), newGame, "successful dig");
+        newGame.executeCommand(kill);
+        jLabelLastAction.setText("Last Action: " + kill.actionToString());
+        updateScore();
     }//GEN-LAST:event_jButtonDigActionPerformed
 
     private void listShowAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listShowAllActionPerformed
@@ -528,14 +650,15 @@ public class handler extends javax.swing.JFrame {
             case("players"):
                 selectedPlayer = findPlayerIndex(listShowAll.getSelectedItem());
                 showPlayerStats();
+                deleteSelected.setText("Delete Selected Player");
                 break;
            //case 2: game is selected.     
             case("games"):
                 selectedGame = findGameIndex(listShowAll.getSelectedItem());
                 showGameStats();
+                deleteSelected.setText("Delete Selected Game");
                 break;
                 
-            
         }
         
         
@@ -553,9 +676,13 @@ public class handler extends javax.swing.JFrame {
         switch(listIndicator){
             case("players"):
                 players.remove(selectedPlayer);
+                showAllPlayers();
+                statList.removeAll();
                 break;
             case("games"):
                 games.remove(selectedGame);
+                showAllGames();
+                statList.removeAll();
                 break;
         }
     }//GEN-LAST:event_deleteSelectedActionPerformed
@@ -577,6 +704,165 @@ public class handler extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_statListActionPerformed
+
+    private void jButtonNewGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNewGameActionPerformed
+        // Add new game.
+        String opponentName = input("Opponent Name");
+        newGame = new Game(opponentName);
+        updateScore();
+        Iterator<Player> iterator = players.iterator();
+        while(iterator.hasNext()){
+            listOnBench.add(iterator.next().getName());
+        }
+        
+    }//GEN-LAST:event_jButtonNewGameActionPerformed
+
+    private void jButtonTeamAddPointActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTeamAddPointActionPerformed
+        // Team add score 1
+        newGame.setTeamScore(newGame.getTeamScore() + 1);
+        updateScore();
+    }//GEN-LAST:event_jButtonTeamAddPointActionPerformed
+
+    private void jButtonTeamSubPointActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTeamSubPointActionPerformed
+        // Team reduce score by 1
+        newGame.setTeamScore(newGame.getTeamScore()  -1);
+        updateScore();
+    }//GEN-LAST:event_jButtonTeamSubPointActionPerformed
+
+    private void jButtonOpponentAddPointActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOpponentAddPointActionPerformed
+        // Opponent add score by 1
+        newGame.setOpponentScore(newGame.getOpponentScore() + 1);
+        updateScore();
+    }//GEN-LAST:event_jButtonOpponentAddPointActionPerformed
+
+    private void jButtonOpponentSubPointActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOpponentSubPointActionPerformed
+        // Opponent reduce score by 1
+        newGame.setOpponentScore(newGame.getOpponentScore() - 1);
+        updateScore();
+    }//GEN-LAST:event_jButtonOpponentSubPointActionPerformed
+
+    private void jButtonSubstituteInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSubstituteInActionPerformed
+        //add from on bench to in court
+        listOnCourt.add(listOnBench.getSelectedItem());
+        newGame.addToRoster(players.get(findPlayerIndex(listOnBench.getSelectedItem())));
+        listOnBench.remove(listOnBench.getSelectedItem());
+    }//GEN-LAST:event_jButtonSubstituteInActionPerformed
+
+    private void listOnBenchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listOnBenchActionPerformed
+        // Change selected player so it can be loaded to in court list and shown quick stats.
+        selectedInGamePlayer = players.get(findPlayerIndex(listOnBench.getSelectedItem()));
+        showQuickStats(selectedInGamePlayer);
+    }//GEN-LAST:event_listOnBenchActionPerformed
+
+    private void jButtonSubstituteOffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSubstituteOffActionPerformed
+        // Move from on court to on bench
+        listOnBench.add(listOnCourt.getSelectedItem());
+        listOnCourt.remove(listOnCourt.getSelectedItem());
+    }//GEN-LAST:event_jButtonSubstituteOffActionPerformed
+
+    private void jButton24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton24ActionPerformed
+        //Save and Exit
+        games.add(newGame);
+        fh.savePlayers(players);
+        fh.saveGames(games);
+        System.exit(0);
+    }//GEN-LAST:event_jButton24ActionPerformed
+
+    private void jButtonKillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonKillActionPerformed
+        // Selected player kills!
+        Command kill = new Command(players.get(findPlayerIndex(listOnCourt.getSelectedItem())), newGame, "kill");
+        newGame.executeCommand(kill);
+        jLabelLastAction.setText("Last Action: " + kill.actionToString());
+        updateScore();
+        
+    }//GEN-LAST:event_jButtonKillActionPerformed
+
+    private void jButtonAttackErrorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAttackErrorActionPerformed
+        // ATTACK ERRROROROROROROROROR
+        Command kill = new Command(players.get(findPlayerIndex(listOnCourt.getSelectedItem())), newGame, "attack error");
+        newGame.executeCommand(kill);
+        jLabelLastAction.setText("Last Action: " + kill.actionToString());
+        updateScore();
+    }//GEN-LAST:event_jButtonAttackErrorActionPerformed
+
+    private void jButtonZeroAttackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonZeroAttackActionPerformed
+        // Zero Attack
+        Command kill = new Command(players.get(findPlayerIndex(listOnCourt.getSelectedItem())), newGame, "zero attack");
+        newGame.executeCommand(kill);
+        jLabelLastAction.setText("Last Action: " + kill.actionToString());
+        updateScore();
+    }//GEN-LAST:event_jButtonZeroAttackActionPerformed
+
+    private void jButtonAssistErrorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAssistErrorActionPerformed
+        // Assist Error :(
+        Command kill = new Command(players.get(findPlayerIndex(listOnCourt.getSelectedItem())), newGame, "assist error");
+        newGame.executeCommand(kill);
+        jLabelLastAction.setText("Last Action: " + kill.actionToString());
+        updateScore();
+    }//GEN-LAST:event_jButtonAssistErrorActionPerformed
+
+    private void jButtonZeroAssistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonZeroAssistActionPerformed
+        // Zero Assist
+        Command kill = new Command(players.get(findPlayerIndex(listOnCourt.getSelectedItem())), newGame, "zero assist");
+        newGame.executeCommand(kill);
+        jLabelLastAction.setText("Last Action: " + kill.actionToString());
+        updateScore();
+    }//GEN-LAST:event_jButtonZeroAssistActionPerformed
+
+    private void jButtonDefenseErrorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDefenseErrorActionPerformed
+        // Defense error :((((
+        Command kill = new Command(players.get(findPlayerIndex(listOnCourt.getSelectedItem())), newGame, "defense error");
+        newGame.executeCommand(kill);
+        jLabelLastAction.setText("Last Action: " + kill.actionToString());
+        updateScore();
+    }//GEN-LAST:event_jButtonDefenseErrorActionPerformed
+
+    private void jButtonBlockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBlockActionPerformed
+        // blooockkk
+        Command kill = new Command(players.get(findPlayerIndex(listOnCourt.getSelectedItem())), newGame, "block");
+        newGame.executeCommand(kill);
+        jLabelLastAction.setText("Last Action: " + kill.actionToString());
+        updateScore();
+    }//GEN-LAST:event_jButtonBlockActionPerformed
+
+    private void jButtonBlockErrorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBlockErrorActionPerformed
+        // block error
+        Command kill = new Command(players.get(findPlayerIndex(listOnCourt.getSelectedItem())), newGame, "block error");
+        newGame.executeCommand(kill);
+        jLabelLastAction.setText("Last Action: " + kill.actionToString());
+        updateScore();
+    }//GEN-LAST:event_jButtonBlockErrorActionPerformed
+
+    private void jButtonZeroBlockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonZeroBlockActionPerformed
+        // zero block
+        Command kill = new Command(players.get(findPlayerIndex(listOnCourt.getSelectedItem())), newGame, "zero block");
+        newGame.executeCommand(kill);
+        jLabelLastAction.setText("Last Action: " + kill.actionToString());
+        updateScore();
+    }//GEN-LAST:event_jButtonZeroBlockActionPerformed
+
+    private void jButtonUndoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUndoActionPerformed
+        // undo command
+        if(!newGame.getHistory().isEmpty()){
+        Command lastCommand =newGame.getHistory().pop();
+        Player p = lastCommand.getInvoker();
+        lastCommand.undo();
+        players.set(findPlayerIndex(p.getName()), lastCommand.getInvoker());
+        newGame = lastCommand.getReciever();
+        jLabelLastAction.setText("Last Action: " + newGame.getHistory().getFirst().actionToString());
+        updateScore();
+        }
+        else{
+            jLabelLastAction.setText("Last Action: ");
+        }
+    }//GEN-LAST:event_jButtonUndoActionPerformed
+
+    private void listOnCourtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listOnCourtActionPerformed
+        // same as list on bench
+        selectedInGamePlayer = players.get(findPlayerIndex(listOnCourt.getSelectedItem()));
+        showQuickStats(selectedInGamePlayer);
+    }//GEN-LAST:event_listOnCourtActionPerformed
+    
     
     
     //custom methods
@@ -659,6 +945,9 @@ public class handler extends javax.swing.JFrame {
         else if(label[0].equals("Assist")){
             jTextFieldEditStats.setText(""+ p.getAssist());
         }
+        else if(label[0].equals("Assist Error")){
+            jTextFieldEditStats.setText("" + p.getAssistError());
+        }
         else if(label[0].equals("Zero Assist")){
             jTextFieldEditStats.setText(""+ p.getZeroAssist());
         }
@@ -704,6 +993,7 @@ public class handler extends javax.swing.JFrame {
         statList.add("Attack Error: " + p.getAttackError());
         statList.add("Zero Attack: " + p.getZeroAttack());
         statList.add("Assist: " + p.getAssist());
+        statList.add("Assist Error: " + p.getAssistError());
         statList.add("Zero Assist: " + p.getZeroAssist());
         statList.add("Ace: " + p.getAce());
         statList.add("Service Error: " + p.getServiceError());
@@ -746,6 +1036,9 @@ public class handler extends javax.swing.JFrame {
         else if(label[0].equals("Assist")){
             players.get(selectedPlayer).setAssist(Integer.parseInt(jTextFieldEditStats.getText()));
         }
+        else if(label[0].equals("Assist Error")){
+            players.get(selectedPlayer).setAssistError(Integer.parseInt(jTextFieldEditStats.getText()));
+        }
         else if(label[0].equals("Zero Assist")){
             players.get(selectedPlayer).setZeroAssist(Integer.parseInt(jTextFieldEditStats.getText()));
         }
@@ -776,6 +1069,7 @@ public class handler extends javax.swing.JFrame {
     }
     private void showGameStats(){
         Game g = games.get(selectedGame);
+        statList.removeAll();
         statList.add("Opponent: " + g.getOpponentName());
         statList.add("Date: " + g.getDate());
         statList.add("Opponent Score: " + g.getOpponentScore() );
@@ -783,16 +1077,7 @@ public class handler extends javax.swing.JFrame {
         String roster = "";
         Iterator<String> iterator = g.getRoster().iterator();
         while(iterator.hasNext()){
-            roster = roster + iterator.next() + "\n";
-        }
-        statList.add("Roster: " + roster);
-        if(!g.getHistory().isEmpty()){
-            String summary = "";
-            Iterator<Command> historyIterator = g.getHistory().iterator();
-            while(historyIterator.hasNext()){
-                summary = summary + historyIterator.next().actionToString() + "\n";
-            }
-            statList.add("Game Summary: " + summary);
+            roster = roster + iterator.next() + ", ";
         }
     }
     private void fillGameStats(){
@@ -801,13 +1086,10 @@ public class handler extends javax.swing.JFrame {
         if(label[0].equals("Opponent")){
             jTextFieldEditStats.setText(g.getOpponentName());
         }
-        else if(label[0].equals("Date")){
-            jTextFieldEditStats.setText(g.getDate());
-        }
         else if(label[0].equals("Opponent Score")){
             jTextFieldEditStats.setText("" + g.getOpponentScore());
         }
-        else if(label[0].equals("Roster") || label[0].equals("Game Sumamry")){
+        else if(label[0].equals("Roster") || label[0].equals("Game Sumamry") || label[0].equals("Date")){
             jTextFieldEditStats.setEnabled(false);
             jTextFieldEditStats.setText("Not Editable");
             jButtonEditStats.setEnabled(false);
@@ -825,6 +1107,20 @@ public class handler extends javax.swing.JFrame {
             games.get(selectedGame).setOpponentScore(Integer.parseInt(jTextFieldEditStats.getText()));
         }
     }
+    private void updateScore(){
+        labelTeamScore.setText("TEAM: " + newGame.getTeamScore());
+        labelOpponentScore.setText("Opponent: " + newGame.getOpponentScore());
+    }
+    private void showQuickStats(Player p){
+        double hittingPercentage = p.getHittingPercentage();
+        double servicePercentage = p.getServicePercentage();
+        double defensePercentage = p.getDefensePercentage();
+        double settingPercentage = p.getSettingPercentage();   
+        jLabelQuickStats.setText("Quick Stats: " + p.getName() + " Hitting %: "  +  hittingPercentage  + " Setting %: "+ settingPercentage + " Defense %: "+ defensePercentage + " Serve %: " + servicePercentage);
+    }
+    
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -882,7 +1178,8 @@ public class handler extends javax.swing.JFrame {
     private javax.swing.JButton jButtonSaveExit;
     private javax.swing.JButton jButtonShowGames;
     private javax.swing.JButton jButtonShowPlayers;
-    private javax.swing.JButton jButtonSubPlayer;
+    private javax.swing.JButton jButtonSubstituteIn;
+    private javax.swing.JButton jButtonSubstituteOff;
     private javax.swing.JButton jButtonTeamAddPoint;
     private javax.swing.JButton jButtonTeamSubPoint;
     private javax.swing.JButton jButtonUndo;
@@ -891,8 +1188,6 @@ public class handler extends javax.swing.JFrame {
     private javax.swing.JButton jButtonZeroBlock;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
@@ -906,8 +1201,10 @@ public class handler extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField jTextFieldEditStats;
-    private java.awt.List list1;
-    private java.awt.List list2;
+    private javax.swing.JLabel labelOpponentScore;
+    private javax.swing.JLabel labelTeamScore;
+    private java.awt.List listOnBench;
+    private java.awt.List listOnCourt;
     private java.awt.List listShowAll;
     private java.awt.List statList;
     // End of variables declaration//GEN-END:variables

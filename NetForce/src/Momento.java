@@ -13,8 +13,8 @@ public class Momento {
     private Game previousGameState;
     
     Momento(Player p, Game g){
-        this.previousPlayerState = p;
-        this.previousGameState = g;
+        this.previousPlayerState = new Player(p);
+        this.previousGameState = new Game(g);
     }
     
     public Player getPlayerState(){

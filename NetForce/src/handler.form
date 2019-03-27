@@ -198,7 +198,7 @@
                 </Component>
                 <Component class="javax.swing.JButton" name="deleteSelected">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Delete Selected Player"/>
+                    <Property name="text" type="java.lang.String" value="Delete Selected"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deleteSelectedActionPerformed"/>
@@ -236,7 +236,7 @@
                                               <Component id="jLabel1" min="-2" pref="46" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="jLabel2" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
+                                                  <Component id="labelTeamScore" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
                                                   <Component id="jButtonTeamAddPoint" alignment="0" min="-2" max="-2" attributes="0"/>
                                                   <Component id="jButtonTeamSubPoint" alignment="0" min="-2" max="-2" attributes="0"/>
                                               </Group>
@@ -244,13 +244,13 @@
                                               <Group type="103" groupAlignment="0" attributes="0">
                                                   <Component id="jButtonOpponentSubPoint" min="-2" max="-2" attributes="0"/>
                                                   <Component id="jButtonOpponentAddPoint" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jLabel3" min="-2" pref="193" max="-2" attributes="0"/>
+                                                  <Component id="labelOpponentScore" min="-2" pref="193" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
                                           <Group type="102" alignment="0" attributes="0">
-                                              <EmptySpace min="-2" pref="138" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" pref="123" max="-2" attributes="0"/>
                                               <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace min="-2" pref="243" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" pref="258" max="-2" attributes="0"/>
                                               <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
@@ -258,9 +258,9 @@
                                       <Component id="jLabelQuickStats" min="-2" pref="609" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" attributes="0">
-                                      <Component id="list1" min="-2" pref="297" max="-2" attributes="0"/>
+                                      <Component id="listOnBench" min="-2" pref="297" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="list2" min="-2" pref="297" max="-2" attributes="0"/>
+                                      <Component id="listOnCourt" min="-2" pref="297" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" attributes="0">
@@ -333,8 +333,10 @@
                               </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="264" max="-2" attributes="0"/>
-                              <Component id="jButtonSubPlayer" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="97" max="-2" attributes="0"/>
+                              <Component id="jButtonSubstituteIn" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="186" max="-2" attributes="0"/>
+                              <Component id="jButtonSubstituteOff" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace pref="44" max="32767" attributes="0"/>
@@ -348,9 +350,9 @@
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jLabel2" min="-2" pref="55" max="-2" attributes="0"/>
+                                  <Component id="labelTeamScore" min="-2" pref="55" max="-2" attributes="0"/>
                                   <Component id="jLabel1" max="32767" attributes="0"/>
-                                  <Component id="jLabel3" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="labelOpponentScore" alignment="0" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
@@ -363,9 +365,9 @@
                                   <Component id="jButtonOpponentSubPoint" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Component id="jLabelQuickStats" max="32767" attributes="0"/>
@@ -415,11 +417,14 @@
                                   <Component id="jButton24" max="32767" attributes="0"/>
                               </Group>
                           </Group>
-                          <Component id="list1" max="32767" attributes="0"/>
-                          <Component id="list2" max="32767" attributes="0"/>
+                          <Component id="listOnBench" max="32767" attributes="0"/>
+                          <Component id="listOnCourt" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jButtonSubPlayer" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jButtonSubstituteIn" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonSubstituteOff" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace pref="40" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -431,12 +436,12 @@
                 <Property name="text" type="java.lang.String" value="Score:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel2">
+            <Component class="javax.swing.JLabel" name="labelTeamScore">
               <Properties>
                 <Property name="text" type="java.lang.String" value="TEAM:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel3">
+            <Component class="javax.swing.JLabel" name="labelOpponentScore">
               <Properties>
                 <Property name="text" type="java.lang.String" value="OPPONENT:"/>
               </Properties>
@@ -445,26 +450,41 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="+1"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonTeamAddPointActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jButtonOpponentAddPoint">
               <Properties>
                 <Property name="text" type="java.lang.String" value="+1"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonOpponentAddPointActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jButtonTeamSubPoint">
               <Properties>
                 <Property name="text" type="java.lang.String" value="-1"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonTeamSubPointActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jButtonOpponentSubPoint">
               <Properties>
                 <Property name="text" type="java.lang.String" value="-1"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonOpponentSubPointActionPerformed"/>
+              </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButtonSubPlayer">
+            <Component class="javax.swing.JButton" name="jButtonSubstituteIn">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Substitute"/>
+                <Property name="text" type="java.lang.String" value="Substitute In"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonSubstituteInActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel4">
               <Properties>
@@ -485,16 +505,25 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Attack Error"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonAttackErrorActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jButtonZeroAttack">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Zero Attack"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonZeroAttackActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jButtonKill">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Kill"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonKillActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel7">
               <Properties>
@@ -524,11 +553,17 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Assist Error"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonAssistErrorActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jButtonZeroAssist">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Zero Assist"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonZeroAssistActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel9">
               <Properties>
@@ -547,11 +582,17 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Defense Error"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonDefenseErrorActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jButtonBlock">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Block"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonBlockActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel10">
               <Properties>
@@ -562,35 +603,64 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Block Error"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonBlockErrorActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jButtonZeroBlock">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Zero Block"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonZeroBlockActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jButtonNewGame">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Enter New Game"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonNewGameActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jButtonUndo">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Undo"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonUndoActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jButton24">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Save and Exit"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton24ActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabelLastAction">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Last Action: "/>
               </Properties>
             </Component>
-            <Component class="java.awt.List" name="list1">
+            <Component class="java.awt.List" name="listOnBench">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="listOnBenchActionPerformed"/>
+              </Events>
             </Component>
-            <Component class="java.awt.List" name="list2">
+            <Component class="java.awt.List" name="listOnCourt">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="listOnCourtActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="jButtonSubstituteOff">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Substitute Out"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonSubstituteOffActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
