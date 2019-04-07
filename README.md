@@ -1,4 +1,4 @@
-Volleyball game statistics tracking program
+Volleyball game statistics tracking program for IB
 Computer Science IA
 
 
